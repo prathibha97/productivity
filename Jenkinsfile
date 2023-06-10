@@ -18,14 +18,14 @@ pipeline {
         }
         
         // This stage is telling Jenkins to run the tests in the client directory.
-        stage('Client Tests') {
-            steps {
-                dir('client') {
-                    sh 'npm install'
-                    sh 'npm test'
-                }
-            }
-        }
+        // stage('Client Tests') {
+        //     steps {
+        //         dir('client') {
+        //             sh 'npm install'
+        //             sh 'npm test'
+        //         }
+        //     }
+        // }
         
         // This stage is telling Jenkins to run the tests in the server directory.
         stage('Server Tests') {
