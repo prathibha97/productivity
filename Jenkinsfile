@@ -1,20 +1,45 @@
+// This is a Jenkinsfile. It is a script that Jenkins will run when a build is triggered.
 pipeline {
-	agent any
+    // Telling Jenkins to run the pipeline on any available agent.
+    agent any
 
-	stages {
-		stage('Checkout') {
-			steps {
-				checkout scm
-			}
-		}
-	}
+    // Setting environment variables for the build.
+    environment {
+        MONGODB_URI = credentials('mongodb-uri')
+    }
 
-  stage('Client Tests') {
-	steps {
-		dir('client') {
-			sh 'npm install'
-			sh 'npm test'
-		}
-	}
-}
+    // This is the pipeline. It is a series of stages that Jenkins will run.
+    stages {
+        // This state is telling Jenkins to checkout the source code from the source control management system.
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        // This stage is telling Jenkins to run the tests in the client directory.
+        stage('Client Tests') {
+            steps {
+                dir('client') {
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+        }
+        
+        // This stage is telling Jenkins to run the tests in the server directory.
+        stage('Server Tests') {
+            steps {
+                dir('server') {
+                    sh 'npm install'
+                    sh 'export MONGODB_URI=$MONGODB_URI'
+                    sh 'export TOKEN_KEY=$TOKEN_KEY'
+                    sh 'export EMAIL=$EMAIL'
+                    sh 'export PASSWORD=$PASSWORD'
+                    sh 'npm test'
+                }
+            }
+        }
+        
+    }
 }
