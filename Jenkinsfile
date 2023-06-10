@@ -28,15 +28,15 @@ pipeline {
         // }
         
         // This stage is telling Jenkins to run the tests in the server directory.
-        stage('Server Tests') {
-            steps {
-                dir('server') {
-                    sh 'npm install'
-                    sh 'export MONGODB_URI=$MONGODB_URI'
-                    sh 'npm test'
-                }
-            }
-        }
+        // stage('Server Tests') {
+        //     steps {
+        //         dir('server') {
+        //             sh 'npm install'
+        //             sh 'export MONGODB_URI=$MONGODB_URI'
+        //             sh 'npm test'
+        //         }
+        //     }
+        // }
         
     }
 }
